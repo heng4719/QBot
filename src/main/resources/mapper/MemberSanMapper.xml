@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whitemagic2014.dao.MemberSanDao">
+
+    <select id="findMemberSan" resultType="com.whitemagic2014.pojo.MemberSan">
+        select * from member_san
+        <where>
+            <if test="uid != null and uid != ''">
+                and uid = #{uid}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertMemberSan" parameterType="com.whitemagic2014.pojo.MemberSan" useGeneratedKeys="true" keyProperty="id">
+        insert into member_san
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                uid,
+            </if>
+            <if test="san != null">
+                san,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                #{uid},
+            </if>
+            <if test="san != null">
+                #{san},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateMemberSan" parameterType="com.whitemagic2014.pojo.MemberSan">
+        update member_san
+        <set>
+            <if test="uid != null">
+                uid = #{uid},
+            </if>
+            <if test="san != null">
+                itemId = #{san},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMemberSan">
+		DELETE FROM member_san WHERE id = #{id}
+	</delete>
+
+</mapper>
